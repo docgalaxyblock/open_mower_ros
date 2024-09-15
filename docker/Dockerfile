@@ -53,7 +53,7 @@ RUN bash -c "source /opt/ros/$ROS_DISTRO/setup.bash && source /opt/slic3r_covera
 # If the package list is the same as last time, the apt install step is cached as well which saves a lot of time.
 # Since the list gets sorted, it will be the same each time and the cache will know that by file checksum in the COPY command.
 # We can't use this stage as base for the next, because this stage is run every time and would therefore invalidate the cache of the next stage.
-FROM fetch as dependencies
+FROM fetch AS dependencies
 
 ENV DEBIAN_FRONTEND=noninteractive
 
