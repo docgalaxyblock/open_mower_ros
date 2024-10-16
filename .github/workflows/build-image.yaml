@@ -31,7 +31,7 @@ permissions:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     strategy:
       matrix:
         docker_build_arch: [ linux/arm64 , linux/amd64 ]
@@ -45,10 +45,20 @@ jobs:
 
           echo "REPOSITORY_LC=${REPOSITORY,,}" >> ${GITHUB_ENV}
 
+          echo "gh repo owner: ${{ github.repository_owner }}"
+          echo "gh actor: ${{ github.actor }}"
+          echo "gh triggering actor: ${{ github.triggering_actor }}"
+
       # Get the repository's code
       - name: Checkout
         uses: actions/checkout@v4
+
       - uses: actions/setup-python@v5
+        with:
+          python-version: '3'
+
+      - run: python --version
+
       - uses: pre-commit/action@v3.0.1
 
       - name: Docker meta
